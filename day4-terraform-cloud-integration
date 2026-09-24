@@ -25,3 +25,41 @@ https://app.terraform.io/
 4. it will tell your to continue with github
 5. it will tell you to authorized 
 finally it will tell your to create an organization give any name and select personal and create the orgaziation
+#in terraform cloud we need to enable auto apply
+##in overview right side you will see 
+#Auto-apply API, UI, & VCS runs: Off
+#Auto-apply run triggers: Off
+##click on the off
+#we will add another instance go to instance-object.tf file delete everything and add this from line 35 till 59
+
+variable "instance" {
+  description = "map of azure vm instance"
+  type = map(object({
+    vm_size = string
+    availability_zone = string 
+    subnet_id = string  
+  }))
+default = {
+  "web1" = {
+    vm_size = "Standard_F2as_v7"
+    availability_zone = "1" #each.value.availability_zone 1
+    subnet_id = "web"
+  }
+  "web2" = {
+    vm_size = "Standard_D2alds_v7"
+    availability_zone = "2" #each.value.availability_zone 2
+    subnet_id = "web"
+  }
+  "web3" = {
+    vm_size = "Standard_F2as_v7"
+    availability_zone = "2" #each.value.availability_zone 2
+    subnet_id = "web"
+  }
+}
+}
+
+##after this in the visual studio code terminal 
+git add .
+git commit -m "added the web3 vm"
+git push origin --all
+#once you push the changes go to the terraform cloud you will see the changes are applied
