@@ -16,3 +16,12 @@ terraform.tfstate.backup
   ##once created in quick setup click on ssh
   #############copy all the three push command and paste it in the terminal 
   ########this will push your code to remote repo refresh it
+#in personal github tab in your browser open a new tab and put this site
+https://app.terraform.io/
+#########once opened extreme blow
+1. create an account. 
+2. click on the same
+3. then extreme below you will find CREATE HCP account
+4. it will tell your to continue with github
+5. it will tell you to authorized 
+finally it will tell your to create an organization give any name and select personal and create the orgaziation
