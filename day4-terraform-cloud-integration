@@ -30,7 +30,7 @@ finally it will tell your to create an organization give any name and select per
 #Auto-apply API, UI, & VCS runs: Off
 #Auto-apply run triggers: Off
 ##click on the off
-#we will add another instance go to instance-object.tf file delete everything and add this from line 35 till 59
+#we will add another instance go to instance-variables.tf file delete everything and add this from line 35 till 59
 
 variable "instance" {
   description = "map of azure vm instance"
