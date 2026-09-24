@@ -1,0 +1,18 @@
+###inside visual studi code where your terraform code is there create a new file .gitignore inside the file copy line 2 till 4. please see that gitignore is created in the working directory not inside any folder
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+#############then in the terminal 
+  rm .git
+  ################
+  git init
+  git add .
+  git commit -m "terraform project"
+  ###finally we need to see our commit
+  git log
+  ##############then go to your personal github
+  ###click on the plus icon new repo give a name kyn-terraform-sep-last-26 and create the repo
+  ##once created in quick setup click on ssh
+  #############copy all the three push command and paste it in the terminal 
+  ########this will push your code to remote repo refresh it
