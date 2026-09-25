@@ -1,0 +1,136 @@
+##in your rdp create a new folder network-module-call
+  ##open visual studio code select this folder network-module-call
+  ####inside the folder create a file provider.tf copy line 4 till 16
+  terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=5.0.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+}
+
+##create a file varaibles.tf copy line 19 till 81
+  variable "project_name" {
+  description = "project name"
+  type        = string
+
+}
+
+variable "environment" {
+  description = "Environment Name"
+  type        = string
+
+}
+
+variable "resource_group_name" {
+  description = "name of the resource group"
+  type        = string
+ 
+}
+
+variable "resource_group_location" {
+  description = "name of the location"
+  type        = string
+  
+}
+
+variable "vnet_address_space" {
+  type    = list(string)
+
+}
+
+variable "web_subnet_address" {
+  type    = list(string)
+
+}
+/*
+variable "tags" {
+  type = map(string)
+}
+*/
+variable "instance" {
+  description = "map of azure vm instance"
+  type = map(object({
+    vm_size = string
+    availability_zone = string 
+    subnet_id = string  
+  }))
+default = {
+  "web1" = {
+    vm_size = "Standard_F2as_v7"
+    availability_zone = "1" #each.value.availability_zone 1
+    subnet_id = "web"
+  }
+  "web2" = {
+    vm_size = "Standard_D2alds_v7"
+    availability_zone = "2" #each.value.availability_zone 2
+    subnet_id = "web"
+  }
+  "web3" = {
+    vm_size = "Standard_F2as_v7"
+    availability_zone = "2" #each.value.availability_zone 2
+    subnet_id = "web"
+  }
+}
+}
+
+#####create a file locals.tf copy line 84 till 95
+  #any local block start with locals
+locals {
+  #name_prefix it is concation of two variables. 
+  name_prefix = "${var.project_name}-${var.environment}"
+  #kyn-project-dev
+  project_tags = { #this project tag is your name 
+    Project     = var.project_name #kyn-project
+    Environment = var.environment #dev
+    Managedby   = "Terraform" #
+
+  }
+}
+
+######crete a file output.tf copy line 98 till 108
+  output "resource_group_name" {
+  value = module.networking.resource_group_name
+}
+
+output "vnet_name" {
+  value = module.networking.vnet_name
+}
+
+output "subnet_id" {
+    value = module.networking.web_subnet_id
+}
+
+##create a file main.tf copy line 113 till 122 inside main.tf change the line number 112 to your github link click on netowrking folder copy the whole linke and paste inisde source block 
+  #remover /tree/main
+  #remove https from starting
+  module "networking" {
+    source = "github.com/gopal1409/kyn25-terraform-module-sep-last26/modules/networking"
+    project_name = var.project_name
+    environment = var.environment
+    resource_group_name = var.resource_group_name
+    location = var.resource_group_location
+    vnet_address_space = var.vnet_address_space
+    web_subnet_address = var.web_subnet_address
+    tags = local.project_tags
+}
+
+##createa a new file dev.tfvars copy line 125 till 130 #in resource group change my name to your name
+  project_name = "kyn-project"
+environment = "dev"
+resource_group_name = "rg-gopal"
+resource_group_location = "eastus"
+vnet_address_space = ["172.31.0.0/16"]
+web_subnet_address = ["172.31.1.0/24"]
+
+  ##then do terraform init
+  ###inside youir .terraform folder it will download the module from github
+  terrafor plan --var-file=dev.tfvars
+  terraform apply --var-file=dev.tfvars
+  ############this will create the infra
