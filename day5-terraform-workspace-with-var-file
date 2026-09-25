@@ -42,4 +42,22 @@ instance = {
    terraform plan --var-file=test.tfvars   
   3. we can pass this varaibles with command line also withught using any varaibles files
   terraform plan --var="environment=prod" --var="project_name=projectx"
+
+#lets create the resources in two different environment to do the same terraform workspace
+23 terraform workspace                                                                                                  
+  24 terraform workspace list   
+##to create a new environment
+  25 terraform workspace new dev                                                                                          
+  26 terraform workspace list   
+##once you create the environment you need to apply in the env using a variables files
+  27 terraform apply --var-file=dev.tfvars                                                                                
+  28 terraform workspace new test                                                                                         
+  29 terraform workspace list                                                                                             
+  30 terraform apply --var-file=test.tfvars                                                                               
+  31 terraform workspace list    
+32 terraform destroy --auto-approve      
+##to destroy in a particular environment you need to switch to that env
+  33 terraform workspace select dev                                                                                       
+  34 terraform destroy --auto-approve                                                                                     
+
   
