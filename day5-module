@@ -1,0 +1,37 @@
+##to create the modules in your desktop create a new folder kyn-terraform-modules
+  ##inside the folder create folder module inside module folder create this folders networking securitygroup compute loadbalancer
+  ##then go to visual stodio code open folder select folder kyn-terraform-modules
+  #you will see a directory structure like this 
+  kyn-terraform-modules/
+│
+├── modules/
+│   │
+│   ├── networking/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   │
+│   ├── security-group/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   │
+│   ├── compute/
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   └── outputs.tf
+│   │
+│   └── alb/
+│       ├── main.tf
+│       ├── variables.tf
+│       └── outputs.tf
+│
+
+  ##once you create the directory structure
+  git init
+  git add .
+  git commit -m "terraform module dir structure"
+  git log
+  #########go to your github click on the plus icon create a new repo kyn25-terraform-module-sep-last26
+  ###then copy all the push command and paste it in your terminal
+  #once upload share me the github link 
